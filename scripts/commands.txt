@@ -1,7 +1,0 @@
-
-python3 src/train.py experiment=grpo data=gsm8k model_path="meta-llama/Llama-2-7b-hf" data.train_dataset_type=base trainer.n_gpus_per_node=4 
-
-### END OF COMMAND ###
-
-python3 src/train.py experiment=grpo data=gsm8k model_path="meta-llama/Llama-2-7b-hf" data.train_dataset_type=adaptive trainer.n_gpus_per_node=4
-

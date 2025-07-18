@@ -37,6 +37,7 @@ class RayPPOTrainerNonParquetteDataset(RayPPOTrainer):
 
         print(self.config.data.train_files)
         self.train_dataset = AdaptiveRLHFDataset(type=self.config.data.train_dataset_type, curriculum_config=self.config.data.curriculum_config,
+                                                size=self.config.data.train_size,
                                         parquet_files=self.config.data.train_files,
                                         tokenizer=self.tokenizer,
                                         processor=self.processor,
@@ -77,6 +78,7 @@ class RayPPOTrainerNonParquetteDataset(RayPPOTrainer):
                                                 sampler=sampler)
 
         self.val_dataset = AdaptiveRLHFDataset(type='base', curriculum_config=self.config.data.curriculum_config,
+                                               size=self.config.data.test_size,
                                     parquet_files=self.config.data.val_files,
                                     tokenizer=self.tokenizer,
                                     processor=self.processor,
@@ -198,6 +200,7 @@ class AdaptiveRLHFDataset(RLHFDataset):
 
     def __init__(self, *args, **kwargs):
         self.type = kwargs.pop('type', 'base')
+        self.size = kwargs.pop('size', None)
         self.curriculum_config = kwargs.pop('curriculum_config', {})
         print(args, kwargs)
         super().__init__(*args, **kwargs)
@@ -206,7 +209,10 @@ class AdaptiveRLHFDataset(RLHFDataset):
         dataframes = []
         for parquet_file in self.parquet_files:
             # read parquet files and cache
-            dataframe = datasets.load_dataset("parquet", data_files=parquet_file)["train"] # .select(range(512)) # for debugging
+            if self.size is not None:
+                dataframe = datasets.load_dataset("parquet", data_files=parquet_file)["train"].select(range(self.size))
+            else:
+                dataframe = datasets.load_dataset("parquet", data_files=parquet_file)["train"]
             dataframes.append(dataframe)
         self.dataframe: datasets.Dataset = datasets.concatenate_datasets(dataframes)
 

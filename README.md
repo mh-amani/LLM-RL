@@ -39,6 +39,36 @@ for parity;
 python scripts/prepare_dataset/prepare_parity_dataset.py --length 64 --train_size 999999 --test_size 512 --local_dir data/verl-data
 ```
 
+for cumulative parity:
+```bash
+python scripts/prepare_dataset/prepare_cumulative_parity_dataset.py --length 16 --train_size 1024 --test_size 512 --local_dir data/verl-data
+```
+
+
+
+### to sft
+
+torchrun --nproc_per_node=4 scripts/sft_on_dataset/train.py \
+data.name=cumulative_parity_length_16_bitwidth_1_2048_512 \
+optim.lr=4e-6 optim.num_cycles=2 \
+data.max_length=256 \
+model.partial_pretrain=Qwen/Qwen2-1.5B \
+data.micro_batch_size_per_gpu=16 \
+data.train_batch_size=256 \
+trainer.total_epochs=16
+
+
+### to RL syntethically
+python3 src/train.py experiment=grpo data.sampler=null data=cumulative_parity_length_16_bitwidth_1_2048_512 \
+model_path="masani/SFT_cumulative_parity_length_16_bitwidth_1_2048_512_Qwen2-1.5B_epoch_16_global_step_128" \
+data.train_dataset_type=base \
+trainer.n_gpus_per_node=4 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=24 \
+actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.rollout.log_prob_micro_batch_size_per_gpu=24 \
+actor_rollout_ref.ref.log_prob_micro_batch_size_per_gpu=24 actor_rollout_ref.actor.optim.lr=1e-6 critic.optim.lr=1e-5 \
+trainer.total_epochs=10000 actor_rollout_ref.actor.ppo_epochs=1 data.train_batch_size=256 trainer.test_freq=40
+
+
+
 ## Running commands
 
 first activate the conda environment

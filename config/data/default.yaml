@@ -5,6 +5,8 @@ val_files: ???
 prompt_key: prompt
 
 train_dataset_type: adaptive # base or adaptive
+train_size: null # null or a number if you want to use a subset of the train set
+test_size: null # null or a number if you want to use a subset of the test set
 
 curriculum_config:
   seperator: null # null, char, "\n", ' ', '=', etc
