@@ -3,13 +3,21 @@ source /dlabscratch1/amani/miniconda3/bin/activate
 conda activate LLM-RL
 
 
-python3 src/train.py experiment=grpo data=openmathr1 \
-    model_path="Qwen/Qwen2-0.5B" \
-    data.train_dataset_type=adaptive data.sampler=null data.train_size=256 data.test_size=100 \
-    trainer.n_gpus_per_node=1 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=4 \
-    actor_rollout_ref.actor.ppo_mini_batch_size=4 actor_rollout_ref.rollout.log_prob_micro_batch_size_per_gpu=4 \
-    actor_rollout_ref.ref.log_prob_micro_batch_size_per_gpu=4 actor_rollout_ref.actor.optim.lr=1e-6 critic.optim.lr=1e-5 \
-    trainer.total_epochs=10 actor_rollout_ref.actor.ppo_epochs=1 data.train_batch_size=4 trainer.test_freq=1000
+# python3 src/train.py experiment=grpo data=openmathr1 \
+#     model_path="Qwen/Qwen2-0.5B" \
+#     data.train_dataset_type=adaptive data.sampler=null data.train_size=256 data.test_size=100 \
+#     trainer.n_gpus_per_node=1 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=4 \
+#     actor_rollout_ref.actor.ppo_mini_batch_size=4 actor_rollout_ref.rollout.log_prob_micro_batch_size_per_gpu=4 \
+#     actor_rollout_ref.ref.log_prob_micro_batch_size_per_gpu=4 actor_rollout_ref.actor.optim.lr=1e-6 critic.optim.lr=1e-5 \
+#     trainer.total_epochs=10 actor_rollout_ref.actor.ppo_epochs=1 data.train_batch_size=4 trainer.test_freq=1000
+
+python3 src/train.py experiment=grpo data=gsm8k \
+    model_path="meta-llama/Meta-Llama-3-8B" \
+    data.train_dataset_type=base data.sampler=null \
+    trainer.n_gpus_per_node=1 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=1 \
+    actor_rollout_ref.actor.ppo_mini_batch_size=32 actor_rollout_ref.rollout.log_prob_micro_batch_size_per_gpu=1 \
+    actor_rollout_ref.ref.log_prob_micro_batch_size_per_gpu=1 actor_rollout_ref.actor.optim.lr=1e-6 critic.optim.lr=1e-5 \
+    trainer.total_epochs=10 actor_rollout_ref.actor.ppo_epochs=1 data.train_batch_size=32 trainer.test_freq=1000
 
 
 # python3 src/train.py experiment=grpo data=gsm8k \

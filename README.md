@@ -58,6 +58,29 @@ data.train_batch_size=256 \
 trainer.total_epochs=16
 
 
+
+torchrun --nproc_per_node=4 scripts/sft_on_dataset/train.py \
+data.name=gsm8k \
+optim.lr=9e-6 optim.num_cycles=0.5 \
+data.max_length=2048 \
+model.partial_pretrain=meta-llama/Llama-3.2-3B \
+data.micro_batch_size_per_gpu=8 \
+data.train_batch_size=256 \
+trainer.total_epochs=1
+
+torchrun --nproc_per_node=4 scripts/sft_on_dataset/train.py \
+data.name=gsm8k \
+optim.lr=9e-6 optim.num_cycles=0.5 \
+data.max_length=2048 \
+model.partial_pretrain=meta-llama/Llama-2-7b-hf \
+data.micro_batch_size_per_gpu=4 \
+data.train_batch_size=256 \
+trainer.total_epochs=1
+
+### END OF COMMAND ###
+
+
+
 ### to RL syntethically
 python3 src/train.py experiment=grpo data.sampler=null data=cumulative_parity_length_16_bitwidth_1_2048_512 \
 model_path="masani/SFT_cumulative_parity_length_16_bitwidth_1_2048_512_Qwen2-1.5B_epoch_16_global_step_128" \

@@ -50,6 +50,15 @@ torchrun --nproc_per_node=1 scripts/sft_on_dataset/train.py \
     data.train_batch_size=256 \
     trainer.total_epochs=5
 
+torchrun --nproc_per_node=4 scripts/sft_on_dataset/train.py \
+    data.name=gsm8k \
+    optim.warmup_steps_ratio=0.01 \
+    data.max_length=2048 \
+    model.partial_pretrain=meta-llama/Llama-2-7b-hf \
+    data.micro_batch_size_per_gpu=1 \
+    data.train_batch_size=256 \
+    trainer.total_epochs=1
+
 
 # # to just upload models from the above training to hub:
 # torchrun --nproc_per_node=1 scripts/sft_on_dataset/train.py \

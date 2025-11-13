@@ -35,7 +35,7 @@ class TaskRunner:
         # print("Waiting for debugger to attach...")
         # debugpy.wait_for_client()
         # if using ray debugger, you only need this:
-        breakpoint()
+        # breakpoint()
         from verl.utils.fs import copy_to_local
         # download the checkpoint from hdfs
         local_path = copy_to_local(config.actor_rollout_ref.model.path)
