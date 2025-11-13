@@ -748,7 +748,7 @@ def upload_models_to_hub(saved_models_path: str):
         print(f'world size: {torch.distributed.get_world_size()}, rank: {torch.distributed.get_rank()}')
         return
     username = HfApi().whoami()["name"]
-    model_epochs = os.listdir(saved_models_path)[-1:]
+    model_epochs = os.listdir(saved_models_path)[-1:0:-10]
     for epoch in model_epochs:
         model_name = 'SFT_' + saved_models_path.split('/')[-4] + '_' + epoch
         print(f"Uploading model {model_name} to huggingface hub...")
