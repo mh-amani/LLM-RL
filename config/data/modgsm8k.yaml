@@ -1,0 +1,11 @@
+defaults:
+  - default
+
+name: modgsm8k
+
+train_files: data/verl-data/modgsm8k/train.parquet
+val_files: data/verl-data/modgsm8k/test.parquet
+
+max_prompt_length: 1024
+max_response_length: 1024
+train_batch_size: 256

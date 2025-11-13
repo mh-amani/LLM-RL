@@ -1,0 +1,12 @@
+defaults:
+  - default
+
+name: OpenMathR1
+
+# https://huggingface.co/datasets/DigitalLearningGmbH/MATH-lighteval
+train_files: data/verl-data/OpenMathR1/train.parquet
+val_files: data/verl-data/OpenMathR1/test.parquet
+
+max_prompt_length: 4096
+max_response_length: 4096
+train_batch_size: 256

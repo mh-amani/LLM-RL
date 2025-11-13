@@ -1,0 +1,13 @@
+defaults:
+  - default
+
+name: parity_length_64_bitwidth_1_256_128
+
+train_files: data/verl-data/parity_length_64_bitwidth_1_256_128/train.parquet
+val_files: data/verl-data/parity_length_64_bitwidth_1_256_128/test.parquet
+
+max_prompt_length: 512
+max_response_length: 512
+train_batch_size: 128
+
+compute_score_fn: src.utils.rewards.ParityReward

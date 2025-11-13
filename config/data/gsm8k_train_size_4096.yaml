@@ -1,0 +1,11 @@
+defaults:
+  - default
+
+name: gsm8k_train_size_4096
+
+train_files: data/verl-data/gsm8k_train_size_4096/train.parquet
+val_files: data/verl-data/gsm8k_train_size_4096/test.parquet
+
+max_prompt_length: 1024
+max_response_length: 1024
+train_batch_size: 256

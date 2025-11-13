@@ -14,7 +14,6 @@ class NaiveRewardManagerWithPortionLogging(NaiveRewardManager):
         reward_extra_info = defaultdict(list)
 
         already_print_data_sources = {}
-        reward_extra_info['portions'] = []
         reward_extra_info['index'] = data.non_tensor_batch['index']
 
         scores = []
@@ -38,7 +37,7 @@ class NaiveRewardManagerWithPortionLogging(NaiveRewardManager):
             extra_info = data_item.non_tensor_batch.get('extra_info', None)
 
             # if partial answer was provided, we prepend to the response
-            if extra_info and 'partial_answer' in extra_info:
+            if extra_info and extra_info.get('partial_answer', None) is not None:
                 response_str = extra_info['partial_answer'] + response_str
 
             score = self.compute_score(
@@ -48,7 +47,7 @@ class NaiveRewardManagerWithPortionLogging(NaiveRewardManager):
                 extra_info=extra_info,
             )
             
-            reward_extra_info['portions'].append(data_item.non_tensor_batch['extra_info'].get('portion', 0.0))
+            reward_extra_info['portion'].append(data_item.non_tensor_batch['extra_info'].get('portion', 0.0))
             scores.append(score)
             if isinstance(score, dict):
                 reward = score["score"]

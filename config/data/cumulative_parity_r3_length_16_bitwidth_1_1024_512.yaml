@@ -1,0 +1,13 @@
+defaults:
+  - default
+
+name: cumulative_parity_r3_length_16_bitwidth_1_1024_512
+
+train_files: data/verl-data/cumulative_parity_r3_length_16_bitwidth_1_1024_512/train.parquet
+val_files: data/verl-data/cumulative_parity_r3_length_16_bitwidth_1_1024_512/test.parquet
+
+max_prompt_length: 256
+max_response_length: 100
+train_batch_size: 128
+
+compute_score_fn: src.utils.rewards.CumulativeParityReward

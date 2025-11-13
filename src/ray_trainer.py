@@ -10,6 +10,7 @@ import os
 import ray
 from verl.utils.checkpoint.checkpoint_manager import find_latest_ckpt_path
 import hydra
+import pprint
 
 
 from src.utils.curriculum_dataset_wrapper import RatioAttemptsVariablesActor, \
@@ -36,6 +37,7 @@ class RayPPOTrainerNonParquetteDataset(RayPPOTrainer):
 
         print(self.config.data.train_files)
         self.train_dataset = AdaptiveRLHFDataset(type=self.config.data.train_dataset_type, curriculum_config=self.config.data.curriculum_config,
+                                                size=self.config.data.train_size,
                                         parquet_files=self.config.data.train_files,
                                         tokenizer=self.tokenizer,
                                         processor=self.processor,
@@ -76,6 +78,7 @@ class RayPPOTrainerNonParquetteDataset(RayPPOTrainer):
                                                 sampler=sampler)
 
         self.val_dataset = AdaptiveRLHFDataset(type='base', curriculum_config=self.config.data.curriculum_config,
+                                               size=self.config.data.test_size,
                                     parquet_files=self.config.data.val_files,
                                     tokenizer=self.tokenizer,
                                     processor=self.processor,
@@ -157,9 +160,9 @@ class RayPPOTrainerNonParquetteDataset(RayPPOTrainer):
 
         
     def log(self, data, reward_extra_info):
-        portions = reward_extra_info['portions']
-        mean_portion = np.mean(portions)
-        std_portion = np.std(portions)
+        portion = reward_extra_info['portion']
+        mean_portion = np.mean(portion)
+        std_portion = np.std(portion)
         is_train_set =  data.non_tensor_batch['extra_info'][0]['split']
         stage = 'train' if is_train_set=='train' else 'val' 
         wandb.log({f'portions/{stage}_portions_mean': mean_portion}, step=self.global_steps)
@@ -168,12 +171,18 @@ class RayPPOTrainerNonParquetteDataset(RayPPOTrainer):
 
     def update_datasets_with_ratios(self, data, scores, reward_extra_info):
         ids = reward_extra_info['index']
-        portions = reward_extra_info['portions']
-        if data.non_tensor_batch['extra_info'][0]['split'] == 'train':
+        portion = reward_extra_info['portion']
+        if data.non_tensor_batch['extra_info'][0]['split'] == 'train': # we are in train mode not validation
             # Update the training dataset
-            self.ratio_actor.update_attempted_ratios.remote([(ids, portions, scores)])
+            # ray.get(self.ratio_actor.update_attempted_ratios.remote([(ids, portion, scores)]))
+            self.ratio_actor.update_attempted_ratios.remote([(ids, portion, scores)])
             self.ratio_actor.set_global_step.remote(self.global_steps)
+            ray.get(self.ratio_actor.update_min_max_avg_ratios.remote())
+            # self.ratio_actor.update_min_max_avg_ratios.remote()
             state_dict = ray.get(self.ratio_actor.get_state.remote())
+            # print(f'max_per_sample_ratio: {state_dict["max_per_sample_ratio"]}')
+            # pprint.pp(f'attempted_ratio list \n {state_dict["attempted_ratios_list"]}')
+        
             self.train_dataset.dataframe.sync_with_all_datasets({**state_dict, 'global_step': self.global_steps})
             if self.config.data.get('sampler', None) is not None:
                 self.train_dataloader.sampler.attempted_ratio_list = state_dict['attempted_ratios_list']
@@ -191,6 +200,7 @@ class AdaptiveRLHFDataset(RLHFDataset):
 
     def __init__(self, *args, **kwargs):
         self.type = kwargs.pop('type', 'base')
+        self.size = kwargs.pop('size', None)
         self.curriculum_config = kwargs.pop('curriculum_config', {})
         print(args, kwargs)
         super().__init__(*args, **kwargs)
@@ -199,7 +209,10 @@ class AdaptiveRLHFDataset(RLHFDataset):
         dataframes = []
         for parquet_file in self.parquet_files:
             # read parquet files and cache
-            dataframe = datasets.load_dataset("parquet", data_files=parquet_file)["train"] # .select(range(10)) # for debugging
+            if self.size is not None:
+                dataframe = datasets.load_dataset("parquet", data_files=parquet_file)["train"].select(range(self.size))
+            else:
+                dataframe = datasets.load_dataset("parquet", data_files=parquet_file)["train"]
             dataframes.append(dataframe)
         self.dataframe: datasets.Dataset = datasets.concatenate_datasets(dataframes)
 

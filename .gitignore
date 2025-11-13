@@ -12,6 +12,7 @@ scripts/tmp_scripts
 
 # DS Store
 .DS_Store
+scripts/scratch/
 
 # VS Code
 *code-workspace

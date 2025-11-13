@@ -32,13 +32,23 @@
 #     trainer.total_epochs=5
     
 
+# torchrun --nproc_per_node=1 scripts/sft_on_dataset/train.py \
+#     data.name=parity \
+#     data.max_length=2048 \
+#     model.partial_pretrain=Qwen/Qwen2-0.5B \
+#     data.micro_batch_size_per_gpu=4 \
+#     data.train_batch_size=256 \
+#     trainer.total_epochs=20
+
+
 torchrun --nproc_per_node=1 scripts/sft_on_dataset/train.py \
-    data.name=parity \
+    data.name=modgsm8k \
+    optim.warmup_steps_ratio=0.01 \
     data.max_length=2048 \
-    model.partial_pretrain=Qwen/Qwen2-0.5B \
+    model.partial_pretrain=meta-llama/Llama-3.2-3B \
     data.micro_batch_size_per_gpu=4 \
     data.train_batch_size=256 \
-    trainer.total_epochs=20
+    trainer.total_epochs=5
 
 
 # # to just upload models from the above training to hub:

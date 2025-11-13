@@ -1,0 +1,13 @@
+defaults:
+  - default
+
+name: gsm8k-t2_r3
+
+train_files: data/verl-data/gsm8k-t2_r3/train.parquet
+val_files: data/verl-data/gsm8k-t2_r3/test.parquet
+
+max_prompt_length: 2048
+max_response_length: 2048
+train_batch_size: 256
+
+compute_score_fn: src.utils.rewards.TensorGSMReward
