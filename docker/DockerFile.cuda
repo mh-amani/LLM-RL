@@ -1,0 +1,45 @@
+FROM nvidia/cuda:12.4.0-devel-ubuntu22.04
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+# --- System deps ---
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3.11 python3.11-venv python3-pip \
+    git curl ca-certificates build-essential \
+    && ln -s /usr/bin/python3.11 /usr/bin/python \
+    && ln -s /usr/bin/pip3 /usr/bin/pip \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /workspace
+
+# (Optional but nice) create a venv inside the container
+RUN python -m venv /opt/llm-rl-env
+ENV VIRTUAL_ENV=/opt/llm-rl-env
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+
+# --- Python deps: match your working versions ---
+RUN pip install --upgrade pip wheel setuptools
+
+# PyTorch with CUDA 12.4
+RUN pip install "torch==2.5.1+cu124" --index-url https://download.pytorch.org/whl/cu124
+
+# vLLM and friends
+RUN pip install "vllm==0.7.3" \
+    "ray[default]==2.9.0" \
+    "flash-attn" --no-build-isolation
+
+# Verl (pin to your known-good commit)
+RUN pip install "git+https://github.com/volcengine/verl.git@550bbbbffe23bc5450db8ce02b256eb75fbf4129"
+
+# --- Your repo code inside the image ---
+# (assumes Dockerfile lives at repo root; adjust path if you put it under docker/)
+COPY . /workspace/LLM-RL
+WORKDIR /workspace/LLM-RL
+
+# Install your project as a package (optional but nice)
+# RUN pip install -e .
+
+# Default command: just drop into bash; Slurm will override with srun anyway
+CMD ["/bin/bash"]
