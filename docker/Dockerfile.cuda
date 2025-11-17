@@ -27,7 +27,7 @@ RUN pip install "torch==2.5.1+cu124" --index-url https://download.pytorch.org/wh
 RUN pip install --upgrade pip setuptools wheel numpy psutil
 
 RUN pip install "vllm==0.7.3" \
-    "ray[default]==2.9.0"
+    "ray[default]==2.40.0"
 
 RUN pip install "flash-attn==2.7.4.post1" --no-build-isolation
 
