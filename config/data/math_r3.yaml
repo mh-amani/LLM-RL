@@ -1,13 +1,11 @@
 defaults:
   - default
 
-name: math-r3
+name: math_r3
 
 train_files: data/verl-data/math-r3/train_k4.parquet
 val_files: data/verl-data/math-r3/test_k4.parquet
 
-max_prompt_length: 1024
-max_response_length: 1024
-train_batch_size: 1024
-
-
+max_prompt_length: 2048
+max_response_length: 1536
+train_batch_size: 256
