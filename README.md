@@ -13,6 +13,7 @@ https://github.com/eric-haibin-lin/verl-data/tree/main
 
 verl git version to install
 git checkout 550bbbbffe23bc5450db8ce02b256eb75fbf4129
+pip3 install git+https://github.com/volcengine/verl.git@550bbbbffe23bc5450db8ce02b256eb75fbf4129
 
 pip install "triton==3.1.0"
 
