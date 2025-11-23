@@ -7,6 +7,6 @@ name: OpenMathR1
 train_files: data/verl-data/OpenMathR1/train.parquet
 val_files: data/verl-data/OpenMathR1/test.parquet
 
-max_prompt_length: 4096
-max_response_length: 4096
+max_prompt_length: 2048
+max_response_length: 1536
 train_batch_size: 256
