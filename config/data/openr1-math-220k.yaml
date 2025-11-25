@@ -3,10 +3,9 @@ defaults:
 
 name: openr1-math-220k
 
-# https://huggingface.co/datasets/DigitalLearningGmbH/MATH-lighteval
 train_files: data/verl-data/openr1-math-220k/train.parquet
 val_files: data/verl-data/openr1-math-220k/test.parquet
 
-max_prompt_length: 1024
-max_response_length: 1024
+max_prompt_length: 2048
+max_response_length: 1536
 train_batch_size: 256

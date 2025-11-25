@@ -1372,6 +1372,28 @@
   model: "masani/SFT_gsm8k_Llama-3.2-1B_epoch_1_global_step_29"
   command: 'python src/train.py experiment=grpo data="gsm8k" data.train_dataset_type=adaptive model_path=masani/SFT_gsm8k_Llama-3.2-1B_epoch_1_global_step_29 data.sampler=null data.curriculum_config.reward_threshold=0.5' 
 
+- id: 860
+  name: "masani/SFT_gsm8k_Llama-3.2-1B_epoch_1_global_step_29-adaptive-id-860"
+  model: "masani/SFT_gsm8k_Llama-3.2-1B_epoch_1_global_step_29"
+  command: 'python src/train.py experiment=grpo data="gsm8k" data.train_dataset_type=adaptive model_path=masani/SFT_gsm8k_Llama-3.2-1B_epoch_1_global_step_29 data.sampler=null data.curriculum_config.reward_threshold=0.2' 
+
+- id: 861
+  name: "masani/SFT_gsm8k_Llama-3.2-1B_epoch_1_global_step_29-adaptive-id-861"
+  model: "masani/SFT_gsm8k_Llama-3.2-1B_epoch_1_global_step_29"
+  command: 'python src/train.py experiment=grpo data="gsm8k" data.train_dataset_type=adaptive model_path=masani/SFT_gsm8k_Llama-3.2-1B_epoch_1_global_step_29 data.sampler=null data.curriculum_config.reward_threshold=0.4'
+
+
+- id: 862
+  name: "masani/SFT_gsm8k_Llama-3.2-1B_epoch_1_global_step_29-adaptive-id-862"
+  model: "masani/SFT_gsm8k_Llama-3.2-1B_epoch_1_global_step_29"
+  command: 'python src/train.py experiment=grpo data="gsm8k" data.train_dataset_type=adaptive model_path=masani/SFT_gsm8k_Llama-3.2-1B_epoch_1_global_step_29 data.sampler=null data.curriculum_config.reward_threshold=0.6' 
+
+
+- id: 863
+  name: "masani/SFT_gsm8k_Llama-3.2-1B_epoch_1_global_step_29-adaptive-id-863"
+  model: "masani/SFT_gsm8k_Llama-3.2-1B_epoch_1_global_step_29"
+  command: 'python src/train.py experiment=grpo data="gsm8k" data.train_dataset_type=adaptive model_path=masani/SFT_gsm8k_Llama-3.2-1B_epoch_1_global_step_29 data.sampler=null data.curriculum_config.reward_threshold=0.8' 
+
 
 
 - id: 855
@@ -1399,6 +1421,25 @@
   model: "meta-llama/Llama-3.2-1B"
   command: 'python src/train.py experiment=grpo data="gsm8k" data.train_dataset_type=adaptive model_path=meta-llama/Llama-3.2-1B data.sampler=null data.curriculum_config.reward_threshold=0.5' 
 
+- id: 865
+  name: "meta-llama/Llama-3.2-1B-adaptive-id-813-865"
+  model: "meta-llama/Llama-3.2-1B"
+  command: 'python src/train.py experiment=grpo data="gsm8k" data.train_dataset_type=adaptive model_path=meta-llama/Llama-3.2-1B data.sampler=null data.curriculum_config.reward_threshold=0.2' 
+
+- id: 866
+  name: "meta-llama/Llama-3.2-1B-adaptive-id-813-866"
+  model: "meta-llama/Llama-3.2-1B"
+  command: 'python src/train.py experiment=grpo data="gsm8k" data.train_dataset_type=adaptive model_path=meta-llama/Llama-3.2-1B data.sampler=null data.curriculum_config.reward_threshold=0.4' 
+
+- id: 867
+  name: "meta-llama/Llama-3.2-1B-adaptive-id-813-867"
+  model: "meta-llama/Llama-3.2-1B"
+  command: 'python src/train.py experiment=grpo data="gsm8k" data.train_dataset_type=adaptive model_path=meta-llama/Llama-3.2-1B data.sampler=null data.curriculum_config.reward_threshold=0.6' 
+
+- id: 868
+  name: "meta-llama/Llama-3.2-1B-adaptive-id-813-868"
+  model: "meta-llama/Llama-3.2-1B"
+  command: 'python src/train.py experiment=grpo data="gsm8k" data.train_dataset_type=adaptive model_path=meta-llama/Llama-3.2-1B data.sampler=null data.curriculum_config.reward_threshold=0.8' 
 
 
 # Comparison with R3 on ModGSM8k -- ICLR Resubmission
@@ -1408,4 +1449,118 @@
 
 
 
+# DeepScaleR
 
+- id: 870
+  name: "meta-llama/Llama-3.2-3B-Instruct-adaptive-id-870"
+  model: "meta-llama/Llama-3.2-3B-Instruct"
+  command: 'python src/train.py experiment=grpo data="deepscaler" data.train_dataset_type=adaptive model_path=meta-llama/Llama-3.2-3B-Instruct actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=8 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+- id: 871
+  name: "Qwen/Qwen2.5-1.5B-Instruct-adaptive-id-871"
+  model: "Qwen/Qwen2.5-1.5B-Instruct"
+  command: 'python src/train.py experiment=grpo data="deepscaler" data.train_dataset_type=adaptive model_path=Qwen/Qwen2.5-1.5B-Instruct actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=8 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+- id: 872
+  name: "meta-llama/Llama-3.2-3B-adaptive-id-872"
+  model: "meta-llama/Llama-3.2-3B"
+  command: 'python src/train.py experiment=grpo data="deepscaler" data.train_dataset_type=adaptive model_path=meta-llama/Llama-3.2-3B actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=4 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+- id: 873
+  name: "meta-llama/Llama-3.2-1B-Instruct-adaptive-id-873"
+  model: "meta-llama/Llama-3.2-1B-Instruct"
+  command: 'python src/train.py experiment=grpo data="deepscaler" data.train_dataset_type=adaptive model_path=meta-llama/Llama-3.2-1B-Instruct actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=8 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+
+- id: 874
+  name: "meta-llama/Llama-3.2-1B-adaptive-id-874"
+  model: "meta-llama/Llama-3.2-1B"
+  command: 'python src/train.py experiment=grpo data="deepscaler" data.train_dataset_type=adaptive model_path=meta-llama/Llama-3.2-1B actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=8 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+
+
+- id: 875
+  name: "meta-llama/Llama-3.2-3B-Instruct-base-id-875"
+  model: "meta-llama/Llama-3.2-3B-Instruct"
+  command: 'python src/train.py experiment=grpo data="deepscaler_r3" data.train_dataset_type=base model_path=meta-llama/Llama-3.2-3B-Instruct actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=4 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+- id: 876
+  name: "Qwen/Qwen2.5-1.5B-Instruct-base-id-876"
+  model: "Qwen/Qwen2.5-1.5B-Instruct"
+  command: 'python src/train.py experiment=grpo data="deepscaler_r3" data.train_dataset_type=base model_path=Qwen/Qwen2.5-1.5B-Instruct actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=8 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+- id: 877
+  name: "meta-llama/Llama-3.2-3B-base-id-877"
+  model: "meta-llama/Llama-3.2-3B"
+  command: 'python src/train.py experiment=grpo data="deepscaler_r3" data.train_dataset_type=base model_path=meta-llama/Llama-3.2-3B actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=4 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+- id: 878
+  name: "meta-llama/Llama-3.2-1B-Instruct-base-id-878"
+  model: "meta-llama/Llama-3.2-1B-Instruct"
+  command: 'python src/train.py experiment=grpo data="deepscaler_r3" data.train_dataset_type=base model_path=meta-llama/Llama-3.2-1B-Instruct actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=8 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+- id: 879
+  name: "meta-llama/Llama-3.2-1B-base-id-879"
+  model: "meta-llama/Llama-3.2-1B"
+  command: 'python src/train.py experiment=grpo data="deepscaler_r3" data.train_dataset_type=base model_path=meta-llama/Llama-3.2-1B actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=8 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+
+
+
+
+# OpenMathR1
+
+- id: 880
+  name: "meta-llama/Llama-3.2-3B-Instruct-adaptive-id-880"
+  model: "meta-llama/Llama-3.2-3B-Instruct"
+  command: 'python src/train.py experiment=grpo data="openr1-math-220k" data.train_dataset_type=adaptive model_path=meta-llama/Llama-3.2-3B-Instruct actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=4 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+- id: 881
+  name: "Qwen/Qwen2.5-1.5B-Instruct-adaptive-id-881"
+  model: "Qwen/Qwen2.5-1.5B-Instruct"
+  command: 'python src/train.py experiment=grpo data="openr1-math-220k" data.train_dataset_type=adaptive model_path=Qwen/Qwen2.5-1.5B-Instruct actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=8 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+- id: 882
+  name: "meta-llama/Llama-3.2-3B-adaptive-id-882"
+  model: "meta-llama/Llama-3.2-3B"
+  command: 'python src/train.py experiment=grpo data="openr1-math-220k" data.train_dataset_type=adaptive model_path=meta-llama/Llama-3.2-3B actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=4 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+- id: 883
+  name: "meta-llama/Llama-3.2-1B-Instruct-adaptive-id-883"
+  model: "meta-llama/Llama-3.2-1B-Instruct"
+  command: 'python src/train.py experiment=grpo data="openr1-math-220k" data.train_dataset_type=adaptive model_path=meta-llama/Llama-3.2-1B-Instruct actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=8 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+
+- id: 884
+  name: "meta-llama/Llama-3.2-1B-adaptive-id-884"
+  model: "meta-llama/Llama-3.2-1B"
+  command: 'python src/train.py experiment=grpo data="openr1-math-220k" data.train_dataset_type=adaptive model_path=meta-llama/Llama-3.2-1B actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=4 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+
+
+
+- id: 885
+  name: "meta-llama/Llama-3.2-3B-Instruct-base-id-885"
+  model: "meta-llama/Llama-3.2-3B-Instruct"
+  command: 'python src/train.py experiment=grpo data="openr1-math-r3" data.train_dataset_type=base model_path=meta-llama/Llama-3.2-3B-Instruct actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=4 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+- id: 886
+  name: "Qwen/Qwen2.5-1.5B-Instruct-base-id-886"
+  model: "Qwen/Qwen2.5-1.5B-Instruct"
+  command: 'python src/train.py experiment=grpo data="openr1-math-r3" data.train_dataset_type=base model_path=Qwen/Qwen2.5-1.5B-Instruct actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=8 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+- id: 887
+  name: "meta-llama/Llama-3.2-3B-base-id-887"
+  model: "meta-llama/Llama-3.2-3B"
+  command: 'python src/train.py experiment=grpo data="openr1-math-r3" data.train_dataset_type=base model_path=meta-llama/Llama-3.2-3B actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=4 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+- id: 888
+  name: "meta-llama/Llama-3.2-1B-Instruct-base-id-888"
+  model: "meta-llama/Llama-3.2-1B-Instruct"
+  command: 'python src/train.py experiment=grpo data="openr1-math-r3" data.train_dataset_type=base model_path=meta-llama/Llama-3.2-1B-Instruct actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=8 data.sampler=null data.curriculum_config.zero_prob=0.1' 
+
+
+- id: 889
+  name: "meta-llama/Llama-3.2-1B-base-id-889"
+  model: "meta-llama/Llama-3.2-1B"
+  command: 'python src/train.py experiment=grpo data="openr1-math-r3" data.train_dataset_type=base model_path=meta-llama/Llama-3.2-1B actor_rollout_ref.actor.ppo_mini_batch_size=256 actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=4 data.sampler=null data.curriculum_config.zero_prob=0.1' 
